@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Jogo de Cibersegurança
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>Jogo de Cibersegurança</h1>
+    <p>Teste seus conhecimentos sobre cibersegurança respondendo as perguntas abaixo:</p>
+    <hr>
+
+	<form onclick="validate()" >
+	{% for pergunta in perguntas_respostas %}
+	{% for pergunta_real in perguntas_respostas[pergunta] %}
+    <div class="card my-5">
+        <div class="card-body">
+            <h2 class="card-title">Pergunta:</h2>
+			<h3>{{pergunta_real}}</h3>
+            <p class="card-text">Qual das seguintes opções é a que acha correcta?</p>
+			
+            <ol class="card-text">
+				{% for resposta in perguntas_respostas[pergunta][pergunta_real] %}
+                <li class="response">{{perguntas_respostas[pergunta][pergunta_real][resposta][0]}}  
+					<input class="btn btn-primary check" type="checkbox" value="{{perguntas_respostas[pergunta][pergunta_real][resposta][1]}}"  >
+				</li>
+				
+				{% endfor %}
+              
+            </ol>
+			
+        </div>
+    </div>
+
+	{% endfor %}
+	{% endfor %}
+
+	<div class=" resultado w-100 btn btn-success" id="butaoResultado"  type="hidden">
+			<h2 id="resultado" style="display:none;" >O RESULTADO É  X%</h2>
+	</div>
+	</form>
+    
+	  <div class="container">
+		<h1>Comentário ou Sugestão</h1>
+		<form target="_blank" action="https://formsubmit.co/jose.goncalves09101992@gmail.com" method="POST">
+		  <div class="form-group">
+			<div class="form-row">
+				<div class="col">
+					<input type="text" name="game" class="form-control" placeholder="Which Game" required>
+				</div>
+				<div class="col">
+					<input type="text" name="name" class="form-control" placeholder="Full Name" required>
+				</div>
+				<div class="col">
+					<input type="email" name="email" class="form-control" placeholder="Email Address" required>
+				</div>
+				<div class="col">
+					<label for="Rating" title="ratings">5 é + Alto.</label>
+				</div>
+				<div class="col">
+					<input type="radio" id="star5" name="rating" value="5">
+					<label for="star5" title="5 stars">5</label>
+					<input type="radio" id="star4" name="rating" value="4">
+					<label for="star4" title="4 stars">4</label>
+					<input type="radio" id="star3" name="rating" value="3">
+					<label for="star3" title="3 stars">3</label>
+					<input type="radio" id="star2" name="rating" value="2">
+					<label for="star2" title="2 stars">2</label>
+					<input type="radio" id="star1" name="rating" value="1">
+					<label for="star1" title="1 star">1</label>
+			 	</div>
+			</div>
+			</div>
+		  </div>
+		  <div class="form-group">
+			<textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
+		  </div>
+		  <button type="submit" class="btn btn-lg btn-dark btn-block">Envio</button>
+		</form>
+	  </div>
+</div>
+
+<script>
+
+	function validate(){
+		
+
+		var itemsChecked = document.querySelectorAll(".check");
+		var total = 5;
+		var corretas = 0;
+		
+		for (let i = 0; i < itemsChecked.length; i++) {
+			
+			const checkbox = itemsChecked[i];
+			if (checkbox.checked == 1 && checkbox.value != 0){
+				console.log("UMA CORRETA")
+				corretas++;
+			}
+			
+		}
+		console.log(corretas)
+	
+		var resultado = corretas / total * 100;
+		console.log(resultado+"%")
+		
+      var tag = document.getElementById("resultado");
+	  console.log(tag.innerHTML = "Resultado "+ resultado +"% de respostas corretas" )
+
+	  tag.style.display = null;
+    } 
+
+
+
+  
+</script>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand text-white" href="/sobre">Sobre Nós</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if session['role']=='admin' %}
+        <a class="navbar-brand text-white" href="/paineladm">Administração</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% endif %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron shadow">
+        <h1 class="display-4">Olá, {{session['user']}}, caro {{session['role']}}!</h1>
+        <p class="lead">
+            Entrou com sucesso no website de Análises de Jogos.
+        </p>
+        <hr class="my-4">
+    </div>
+</div>
+{% if jogos %}
+{% for jogo in jogos %}
+<div class="container mt-5">
+    <div class="jumbotron shadow">
+        <h1 class="display-4">{{jogos[jogo]}} - {{jogo}}</h1>
+        <p class="lead">
+            <a class="btn btn-primary" href="/game/{{jogo}}/">Jogue Aqui</a>
+            <a class="btn btn-secondary" href="/analise">Análises Aqui</a>
+            <a class="btn btn-outline-secondary" href="/game/{{jogo}}/">Visualização de Analises Aqui</a>
+        </p>
+        <hr class="my-4">
+    </div>
+</div>
+{% endfor %}
+{% else %}
+    <h2>Sem jogos para mostrar</h2> 
+{% endif %}
+
+
+
+{% endblock %}

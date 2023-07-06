@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block nav %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand text-white" href="/sobre">Sobre Nós</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if session['role']=='admin' %}
+        <a class="navbar-brand text-white" href="/paineladm">Administração</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% endif %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron shadow">
+        <h1 class="display-4">Olá, {{session['user']}}, caro {{session['role']}}!</h1>
+        <p class="lead">
+            Entrou com sucesso no painel administrativo.
+        </p>
+        <hr class="my-4">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Role</th>
+                <th scope="col">Editar Role</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <!-- Modal -->
+  <div class="modal fade" id="Modal{{user['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/paineladm" method="POST">
+            <label for="User" class="form-control">{{user['username'] }}</label>
+            <input type="hidden" name="iduser" id="iduser" class="form-control" value="{{user['id'] }}">
+            <select class="form-control" name="role" id="role">
+                <option value="user">Utilizador</option>
+                <option value="admin">Administrador</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div></form>
+      </div>
+    </div>
+  </div>
+              <tr>
+                <td>{{user['id']}}</td>
+                <td>{{user['username']}}</td>
+                <td>{{user['role']}}</td>
+                <td><a type="button" class="btn btn-primary" data-toggle="modal" href="#Modal{{user['id'] }}">
+                    <i class="fa-solid fa-user-pen"></i></a></td>
+              </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+  
+  
+    </div>
+</div>
+
+
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
+{% endblock %}

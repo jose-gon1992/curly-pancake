@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand text-white" href="/sobre">Sobre Nós</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if session['role']=='admin' %}
+        <a class="navbar-brand text-white" href="/paineladm">Administração</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% endif %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="container">
+    <h1>Comentário ou Sugestão</h1>
+    <form target="_blank" action="https://formsubmit.co/jose.goncalves09101992@gmail.com" method="POST">
+      <div class="form-group">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" name="game" class="form-control" placeholder="Which Game" required>
+            </div>
+            <div class="col">
+                <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+            </div>
+            <div class="col">
+                <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+            </div>
+            <div class="col">
+                <label for="Rating" title="ratings">5 é + alto.</label>
+            </div>
+            <div class="col">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5" title="5 stars">5</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" title="4 stars">4</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="3 stars">3</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" title="2 stars">2</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" title="1 star">1</label>
+             </div>
+        </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-lg btn-dark btn-block">Envio</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

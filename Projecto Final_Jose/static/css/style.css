@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.br-10 {
+    border-radius: 10px;
+}
+
+.g-recaptcha > div {
+    margin-inline: auto;
+}
+
+.hiddenDiv{
+    display:none;
+}

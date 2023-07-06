@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron shadow">
+        <h1 class="display-4">Sobre Nós!</h1>
+        <p class="lead">
+            Bem-vindo ao nosso projeto de jogos didáticos para crianças de cibersegurança e análises ou comentários a esses jogos! <p>Nosso objetivo é fornecer aos pais, educadores e crianças informações detalhadas sobre os jogos educacionais disponíveis no mercado. Acreditamos que os jogos podem ser uma ótima ferramenta para ajudar as crianças a aprender enquanto se divertem, e queremos ajudar a garantir que os jogos escolhidos sejam divertidos, envolventes e, acima de tudo, educativos.
+            Acreditamos que a educação deve ser acessível a todos, por isso nosso projeto é completamente gratuito para qualquer pessoa interessada em jogos educacionais.</p><p>Estamos comprometidos em fornecer informações precisas e confiáveis ​​sobre jogos educacionais para ajudar a melhorar a educação das crianças em todo o mundo.
+            Obrigado por visitar o nosso projeto!</p> <p> Se você tiver alguma dúvida ou sugestão, não hesite em entrar em contato conosco. Estamos sempre buscando maneiras de melhorar e ajudar a tornar a educação mais divertida e acessível para todos.</p>
+        </p>
+        <hr class="my-4">
+    </div>
+</div>
+{% endblock %}
